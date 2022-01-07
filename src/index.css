@@ -14,14 +14,9 @@ code {
   overflow-x: scroll;
 }
 
-.movie-img:hover {
+.result-img:hover {
   transform: translateY(-0.25em);
   cursor: pointer;
-}
-.movie-img {
-  width : 100%;
-  max-height: 300px;
-  transition: transform 0.2s;
 }
 
 .movie-container::-webkit-scrollbar {
@@ -44,5 +39,6 @@ code {
   width : 300px;
   margin : auto;
   padding: 5px;
+  transition: transform 0.2s;
   /* max-height: 300px; */
 }

@@ -9,7 +9,12 @@ export const SingleMovie = (props) => {
     const img_url = "https://image.tmdb.org/t/p/original"
     const movie = props.m
     const id = movie.id
-    const type = props.type
+    let type = ""
+    if (props.type == null){
+        type = movie.media_type
+    }else{
+        type = props.type
+    }
     // const { getSingleMovie } = useContext(DataContext)
     // getSingleMovie(movie)
     // const [singlePage, setSinglePage] = useState(false)
@@ -34,7 +39,7 @@ export const SingleMovie = (props) => {
 
     return (
             <Link to={path}>
-                <img className='movie-img result-img'  src={img_url + movie.poster_path} alt={movie.original_title}  />
+                <img className='result-img'  src={img_url + movie.poster_path} alt={movie.original_title}  />
             </Link>
     )
 }

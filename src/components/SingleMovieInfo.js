@@ -13,12 +13,12 @@ export const SingleMovieInfo = (props) => {
     // console.log(match.params.type)
     const url = `https://api.themoviedb.org/3/${type}/${id}?api_key=a31ff14e759e872eb7151add966d60de`
     const img_url = "https://image.tmdb.org/t/p/original"
-    console.log(url)
+    // console.log(url)
 
     useEffect(() => {
         async function movie_data() {
             let response = await axios.get(url)
-            console.log(response.data)
+            // console.log(response.data)
             setShow(response.data)
             return response
         }
@@ -29,7 +29,7 @@ export const SingleMovieInfo = (props) => {
         <div className='text-white'>
             <Navbar />
             <div>
-                <img className='movie-img result-img'  src={img_url + show.poster_path} alt={show.original_title} />
+                <img className='result-img'  src={img_url + show.poster_path} alt={show.original_title} />
             </div>
         </div>
     )
