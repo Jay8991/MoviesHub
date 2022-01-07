@@ -8,14 +8,18 @@ export const Signup = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [confirmpassword, setConfirmPassword] = useState("")
     const { signup } = useUserAuth()
     const [error, setError] = useState("")
     const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError("")
+        if(confirmpassword !== password){
+            return setError("Password do not match")
+        }
         try{
+            setError("")
             await signup(email, password)
             navigate("/")
         }catch(err){
@@ -37,6 +41,9 @@ export const Signup = () => {
                         <div className='form-group mb-3'>
                             <input className='form-control' type="password" placeholder='Password' onChange={(e) => setPassword(e.target.value)}/>
                         </div>
+                        <div className='form-group mb-3'>
+                            <input className='form-control' type="password" placeholder='Confirm Password' onChange={(e) => setConfirmPassword(e.target.value)}/>
+                        </div>
 
                         <div className='d-grid gap-2'>
                             <button className='btn btn-primary btn-block'>
@@ -45,9 +52,6 @@ export const Signup = () => {
                         </div>
                     </form>
                     <hr />
-                    <div>
-                        <GoogleButton className='g-btn text-center' type='dark' />
-                    </div>
                     <div className='p-4 box mt-3 text-center'>
                         Already have an account? <Link to="/">Log In</Link>
                     </div> 

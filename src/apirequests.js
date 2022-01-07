@@ -24,6 +24,5 @@ export default {
     upcoming_movies : 'https://api.themoviedb.org/3/movie/upcoming?api_key=a31ff14e759e872eb7151add966d60de&language=en-US&page=1',
     popular_tv : `https://api.themoviedb.org/3/tv/popular?api_key=a31ff14e759e872eb7151add966d60de&language=en-US&page=1`,
     top_rated_tv : `https://api.themoviedb.org/3/tv/top_rated?api_key=a31ff14e759e872eb7151add966d60de&language=en-US&page=1`,
-    // search: `https://api.themoviedb.org/3/search/company?api_key=a31ff14e759e872eb7151add966d60de&query=${search}&page=1`
 
 }

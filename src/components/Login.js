@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Alert, Button, Form } from 'react-bootstrap'
 import GoogleButton from 'react-google-button'
-import {Link, useNavigate} from "react-router-dom"
+import {Link, NavLink, useNavigate} from "react-router-dom"
 import { useUserAuth } from '../context/UserAuthContext'
 
 export const Login = () => {
@@ -45,6 +45,9 @@ export const Login = () => {
                     <div className='form-group mb-3'>
                         <input className='form-control' type="email" placeholder='Email Address'onChange={(e) => setEmail(e.target.value)}/>
                     </div>
+                    <div className="w-100  mt-3">
+                            <NavLink to="/forgotpassword">Forgot Password</NavLink>
+                        </div>
                     <div className='form-group mb-3'>
                         <input className='form-control' type="password" placeholder='Password' onChange={(e) => setPassword(e.target.value)}/>
                     </div>
@@ -57,7 +60,7 @@ export const Login = () => {
                 </form>
                 <hr />
                 <div>
-                    <GoogleButton className='g-btn text-center' type='dark' onClick={handleGoogleSignIn} />
+                    <GoogleButton className='g-btn mx-auto' type='dark' onClick={handleGoogleSignIn} />
                 </div>
                 <div className='p-4 box mt-3 text-center'>
                     Don't have an account? <Link to="/signup">Sign Up</Link>

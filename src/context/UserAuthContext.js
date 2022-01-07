@@ -8,6 +8,9 @@ export function UserAuthContextProvider( { children }){
 
     const [user, setUser] = useState("")
 
+    // so the screen doesn't load and go to home page when user is logged in 
+    const [loading, setLoading] = useState(true)
+
     function signup(email, password){
         return createUserWithEmailAndPassword(auth, email, password)
     }
@@ -20,6 +23,18 @@ export function UserAuthContextProvider( { children }){
         return signOut(auth)
     }
 
+    function resetPassword(email) {
+        auth.returnsendPasswordResetEmail(email)
+    }
+
+    function updateEmail(email) {
+        return updateEmail(user, email)
+    }
+
+    function updatePassword(password){
+        return updatePassword(user, password)
+    }
+
     function googleSignIn() {
         const googleAuthProvider = new GoogleAuthProvider();
         return signInWithPopup(auth, googleAuthProvider)
@@ -28,6 +43,8 @@ export function UserAuthContextProvider( { children }){
     useEffect(() => {
         const unsubcribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser)
+            setLoading(false)
+
         });
         return () => {
             unsubcribe();
@@ -35,12 +52,12 @@ export function UserAuthContextProvider( { children }){
     }, [])
 
     let value = {
-        user, signup, login, logout, googleSignIn
+        user, signup, login, logout, googleSignIn, resetPassword, updatePassword, updateEmail
     }
 
     return (
         <userAuthContext.Provider value={value}>
-            {children}
+            {!loading && children}
         </userAuthContext.Provider>
     )
 }
