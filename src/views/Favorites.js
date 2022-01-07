@@ -16,7 +16,7 @@ export const Favorites = () => {
     return (
         <div>
             <Navbar />
-            This is Favorites view
+            <h6 className='text-white'>This is Favorites view</h6>
         </div>
     )
 }

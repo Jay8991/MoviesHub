@@ -5,12 +5,12 @@ import "firebase/firestore"
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBJqSePbHjvYwEcOwLmyeqAF_a6ftbBwv0",
-  authDomain: "movieshub-9b84b.firebaseapp.com",
-  projectId: "movieshub-9b84b",
-  storageBucket: "movieshub-9b84b.appspot.com",
-  messagingSenderId: "74427104059",
-  appId: "1:74427104059:web:a4dbded82a99e5faa8d51e"
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_APPID
 };
 
 // Initialize Firebase

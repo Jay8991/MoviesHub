@@ -8,8 +8,6 @@ import { Results } from './Results'
 
 export const Navbar = () => {
 
-    // search: `https://api.themoviedb.org/3/search/company?api_key=a31ff14e759e872eb7151add966d60de&query=${search}&page=1`
-
     const {user, logout} = useUserAuth()
     const { getSearch } = useContext(DataContext)
     

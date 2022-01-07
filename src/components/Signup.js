@@ -33,7 +33,7 @@ export const Signup = () => {
                 <div className='col'></div>
                 <div className='col card m-2 p-4'>
                 <h2>Sign Up</h2>
-                    {error && <Alert variant="danger">Email or Password incorrect</Alert>}
+                    {error && <Alert variant="danger">Password doesn't match</Alert>}
                     <form onSubmit={handleSubmit}>
                         <div className='form-group mb-3'>
                             <input className='form-control' type="email" placeholder='Email Address'onChange={(e) => setEmail(e.target.value)}/>
