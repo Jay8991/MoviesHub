@@ -26,7 +26,7 @@ function App() {
           <Route path="/movieslist" element={<ProtectedRoute><MoviesList /></ProtectedRoute>} />
           <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />
           <Route path="/results" element={<ProtectedRoute><Results /></ProtectedRoute>} />
-          <Route path="/singlepage" element={<ProtectedRoute><SingleMovieInfo /></ProtectedRoute>} />
+          <Route path="/singlemovie/:type/:id" element={<ProtectedRoute><SingleMovieInfo /></ProtectedRoute>} />
         </Routes>
         </DataProvider>
       </UserAuthContextProvider>

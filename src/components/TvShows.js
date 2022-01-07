@@ -7,14 +7,14 @@ export const TvShows = () => {
     return (
         <div>
             <Navbar />
-            <Movies title="TRENDING TV SHOWS" url={apirequests.trending_tv} />
-            <Movies title="DISCOVER TV SHOWS" url={apirequests.discover_tv} />
-            <Movies title="ACTION/ADVENTURE TV SHOWS" url={apirequests.action_adventure_tv} />
-            <Movies title="COMEDY TV SHOWS" url={apirequests.comedy_tv} />
-            <Movies title="CRIME TV SHOWS" url={apirequests.crime_tv} />
-            <Movies title="KIDS TV SHOWS" url={apirequests.kids_tv} />
-            <Movies title="MYSTERY TV SHOWS" url={apirequests.mystery_tv} />
-            <Movies title="DRAMA TV SHOWS" url={apirequests.drame_tv} />
+            <Movies type="tv" title="TRENDING TV SHOWS" url={apirequests.trending_tv} />
+            <Movies type="tv" title="DISCOVER TV SHOWS" url={apirequests.discover_tv} />
+            <Movies type="tv" title="ACTION/ADVENTURE TV SHOWS" url={apirequests.action_adventure_tv} />
+            <Movies type="tv" title="COMEDY TV SHOWS" url={apirequests.comedy_tv} />
+            <Movies type="tv" title="CRIME TV SHOWS" url={apirequests.crime_tv} />
+            <Movies type="tv" title="KIDS TV SHOWS" url={apirequests.kids_tv} />
+            <Movies type="tv" title="MYSTERY TV SHOWS" url={apirequests.mystery_tv} />
+            <Movies type="tv" title="DRAMA TV SHOWS" url={apirequests.drame_tv} />
         </div>
     )
 }

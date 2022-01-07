@@ -15,7 +15,7 @@ export const Movies = (props) => {
     useEffect(() => {
         async function movie_data() {
             let response = await axios.get(props.url)
-            // console.log(response.data.results)
+            // console.log(response)
             setMovies(response.data.results)
             return response
         }
@@ -28,7 +28,7 @@ export const Movies = (props) => {
             <div className='movie-container d-flex'>
                 {movies.map(movie => (
                     // <img className='movie-img' key={movie.id} src={img_url + movie.poster_path} alt={movie.original_title}  onClick={handleFavorite}/>
-                    <SingleMovie key={movie.id} m={movie} />
+                    <SingleMovie key={movie.id} m={movie} type={props.type}/>
                 ))}
             </div>
         </div>

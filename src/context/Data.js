@@ -6,8 +6,9 @@ export const DataContext = createContext();
 
 export const DataProvider = (props) => {
     const { user } = useUserAuth()
-    const [favorites, setFavorites] = useState()
-    const [search, setSearch] = useState()
+    const [favorites, setFavorites] = useState("")
+    const [search, setSearch] = useState("")
+    const [singleMovie, setSingleMovie] = useState([])
 
     const db = getFirestore();
 
@@ -44,6 +45,11 @@ export const DataProvider = (props) => {
         setSearch(search)
     }
 
+    // const getSingleMovie = (movie) => {
+    //     console.log(movie)
+    //     setSingleMovie(movie)
+    // }
+
 
     // const getFavorites = useCallback(
     //     async() => {
@@ -57,6 +63,7 @@ export const DataProvider = (props) => {
     // {
     //     getFavorites();
     // }, [ getFavorites ])
+
 
     
     const values = {
