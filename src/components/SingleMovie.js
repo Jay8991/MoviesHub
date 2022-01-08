@@ -8,6 +8,9 @@ import { SingleMovieInfo } from '../views/SingleMovieInfo'
 export const SingleMovie = (props) => {
     const img_url = "https://image.tmdb.org/t/p/original"
     const movie = props.m
+
+    const { getMovieId } = useContext(DataContext)
+
     const imgPath = movie.poster_path
     let img_url_path = ""
     if(imgPath === null){
@@ -15,7 +18,7 @@ export const SingleMovie = (props) => {
     }else{
         img_url_path = img_url + imgPath
     }
-    // console.log(movie)
+
     const id = movie.id
     let type = ""
     if (props.type == null){
@@ -24,12 +27,15 @@ export const SingleMovie = (props) => {
         type = props.type
     }
 
+    const handleSingleMovie = () =>{
+        getMovieId(id)
+    }
+
     // console.log(img_url + movie.poster_path)
     const path = `/singlemovie/${type}/${id}`
-    // console.log(movie)
 
     return (
-            <Link to={path}>
+            <Link to={path} onClick={handleSingleMovie}>
                 <img className='result-img m-auto'  src={img_url_path} alt={movie.original_title}  />
             </Link>
     )
