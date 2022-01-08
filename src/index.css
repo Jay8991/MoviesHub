@@ -71,7 +71,11 @@ code {
   background-color: white;
 }
 
-textarea {
+.hr2-line{
+  background-color: dimgrey;
+}
+
+.input-comment{
   border: none;
   background-color: transparent;
   width: 100%;

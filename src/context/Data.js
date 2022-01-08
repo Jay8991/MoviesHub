@@ -9,6 +9,7 @@ export const DataProvider = (props) => {
     const [favorites, setFavorites] = useState("")
     const [search, setSearch] = useState("")
     const [singleMovie, setSingleMovie] = useState([])
+    const [ comments, setComments ] = useState([]);
 
     const db = getFirestore();
 
@@ -65,9 +66,44 @@ export const DataProvider = (props) => {
     // }, [ getFavorites ])
 
 
+    // const getComments = useCallback(
+    //     async () =>
+    //     {
+    //         const q = query( collection(db, 'posts'), orderBy( "dateCreated", "desc" ) );
+            
+    //         const querySnapshot = await getDocs( q );
+    //         // return querySnapshot;
+    //         let newPosts = [];
+
+    //         querySnapshot.forEach(doc =>
+    //         {
+    //             newPosts.push({
+    //                 id: doc.id,
+    //                 ...doc.data()
+    //             })
+    //         });
+
+    //         setPosts(newPosts);
+
+    //         return querySnapshot;
+    //     }, [ db ]
+    // )
+
+    const addComments = async ( postComments, type, id ) => {
+        const docRef = await addDoc( collection( db, 'comments', type, id ), postComments );
+        const doc = await getDoc( docRef );
+        setComments( [ { ...doc.data(), id: docRef.id } ] );
+    }
+
+    // useEffect(() =>
+    // {
+    //     getPosts();
+    // }, [ getPosts ])
+
+
     
     const values = {
-        favorites, addFavorite, getSearch, search
+        favorites, addFavorite, getSearch, search, addComments, comments
     }
 
     return (

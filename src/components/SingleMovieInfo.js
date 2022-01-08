@@ -8,16 +8,38 @@ import {Navbar} from './Navbar'
 export const SingleMovieInfo = (props) => {
     const {user} = useUserAuth()
     const commentString = `Commenting as ${user.email}`
-    console.log(commentString)
+    // console.log(commentString)
+
     const match = useMatch("/singlemovie/:type/:id")
     const [show, setShow] = useState([])
     const id = match.params.id
     const type = match.params.type
     // console.log(match.params.id)
     // console.log(match.params.type)
+
+
     const url = `https://api.themoviedb.org/3/${type}/${id}?api_key=a31ff14e759e872eb7151add966d60de`
     const img_url = "https://image.tmdb.org/t/p/original"
     // console.log(url)
+
+    const [comment, setComment] = useState("")
+    const { addComments } = useContext(DataContext)
+
+
+    async function handleComments(e){
+        e.preventDefault()
+        const data = {
+            comment: comment,
+            user : user.email
+        }
+        try{
+            // console.log(comment)
+            await addComments(data, type, id)
+            setComment("")
+        }catch{
+            console.log("ERROR")
+        }
+    }
 
     useEffect(() => {
         async function movie_data() {
@@ -42,7 +64,7 @@ export const SingleMovieInfo = (props) => {
                         <p className='text-white'>Overview: {show.overview}</p>
                         <p className='text-white'>Release Date: {show.release_date}</p>
                         <p className='text-white'>Run Time: {show.runtime} min.</p>
-                        <p className='text-white'>Staus: {show.status}</p>
+                        {/* <p className='text-white'>Staus: {show.status}</p> */}
                         <p className='text-white'>Vote Avg.: {show.vote_average}</p>
                         {/* <p className='text-white'>Genre.: {show.genres.map(g => (console.log(g.name)))}</p> */}
                     </div>
@@ -51,7 +73,13 @@ export const SingleMovieInfo = (props) => {
                     <div className='col'>
                         <h3 className='text-white'>Comments</h3>
                         <hr className='hr-line'/>
-                        <textarea className='text-white' type='text' placeholder={commentString}/>
+                        <form onSubmit={handleComments}>
+                            <input className='text-white input-comment p-2' type='text' placeholder={commentString} onChange={(e) => setComment(e.target.value)} />
+                        </form>
+                        <hr className='hr2-line'/>
+                        <div className='mt-3 text-white'>
+                            All comments go here
+                        </div>
                     </div>
                 </div>
             </div> 
