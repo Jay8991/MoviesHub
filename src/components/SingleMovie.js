@@ -34,7 +34,7 @@ export const SingleMovie = (props) => {
             userId : user.email, 
             movie
         }
-        addFavorite(formData)
+        // addFavorite(formData)
     }
 
     return (
