@@ -3,9 +3,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, useMatch } from 'react-router-dom'
 import { DataContext } from '../context/Data'
 import { useUserAuth } from '../context/UserAuthContext'
-import { MovieInfo } from './MovieInfo'
-import {Navbar} from './Navbar'
-import { TvInfo } from './TvInfo'
+import { MovieInfo } from '../components/MovieInfo'
+import {Navbar} from '../components/Navbar'
+import { TvInfo } from '../components/TvInfo'
+import { MovieComments } from '../components/MovieComments'
+import {TvComments} from '../components/TvComments'
 
 export const SingleMovieInfo = () => {
     const {user} = useUserAuth()
@@ -72,7 +74,7 @@ export const SingleMovieInfo = () => {
                         </form>
                         <hr className='hr2-line'/>
                         <div className='mt-3 text-white mb-5'>
-                            All comments go here
+                            { type == 'movie' ? <MovieComments/>: <TvComments />}
                         </div>
                     </div>
                 </div>

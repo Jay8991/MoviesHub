@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { DataContext } from '../context/Data'
 import { useUserAuth } from '../context/UserAuthContext'
 import { Movies } from './Movies'
-import { Results } from './Results'
+import { Results } from '../views/Results'
 
 export const Navbar = () => {
 

@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Link, Router, useMatch, useNavigate } from 'react-router-dom'
 import { DataContext } from '../context/Data'
 import { useUserAuth } from '../context/UserAuthContext'
-import { SingleMovieInfo } from './SingleMovieInfo'
+import { SingleMovieInfo } from '../views/SingleMovieInfo'
 
 
 export const SingleMovie = (props) => {

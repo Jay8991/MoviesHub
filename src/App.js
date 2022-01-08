@@ -1,16 +1,16 @@
 import { Routes, Route} from "react-router-dom"
-import { Login } from "./components/Login";
-import { Signup } from "./components/Signup";
+import { Login } from "./views/Login";
+import { Signup } from "./views/Signup";
 import { UserAuthContextProvider, useUserAuth } from "./context/UserAuthContext";
 import {Home} from "./views/Home"
 import {ProtectedRoute} from "./components/ProtectedRoute"
 import { Favorites } from "./views/Favorites";
-import { TvShows } from "./components/TvShows";
-import { MoviesList } from "./components/MoviesList";
+import { TvShows } from "./views/TvShows";
+import { MoviesList } from "./views/MoviesList";
 import { DataProvider } from "./context/Data";
-import { ForgotPassword } from "./components/ForgotPassword";
-import { Results } from "./components/Results";
-import { SingleMovieInfo } from "./components/SingleMovieInfo";
+import { Results } from "./views/Results";
+import { SingleMovieInfo } from "./views/SingleMovieInfo";
+import {ForgotPassword} from "./views/ForgotPassword"
 
 function App() {
   return (

@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useUserAuth } from '../context/UserAuthContext'
 import axios from 'axios'
 import { DataContext } from '../context/Data'
-import { SingleMovie } from './SingleMovie'
-import { Navbar } from './Navbar'
-import { Movies } from './Movies'
+import { SingleMovie } from '../components/SingleMovie'
+import { Navbar } from '../components/Navbar'
+import { Movies } from '../components/Movies'
 
 export const Results = () => {
     const { search } = useContext(DataContext)
