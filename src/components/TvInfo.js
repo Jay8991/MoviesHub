@@ -1,12 +1,27 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { DataContext } from '../context/Data'
+import { useUserAuth } from '../context/UserAuthContext'
 
 export const TvInfo = (props) => {
+    const {user} = useUserAuth()
+    const { addFavorite } = useContext(DataContext)
+
     const show = props.show
     // console.log(show)
     
-    const handleFavorites = () => {
-
+    async function handleFavorites(e){
+        e.preventDefault()
+        const formData = {
+            userId : user.email, 
+            show
+        }
+        try{
+            await addFavorite(formData, "tv")
+        }catch(err){
+            console.log(err)
+        }
     }
+
     return (
         <div className='col-6 show-info'>
             <h3 className='text-white show-title'>{show.name}</h3>

@@ -6,11 +6,10 @@ import { SingleMovie } from './SingleMovie'
 import { Navbar } from './Navbar'
 import { Movies } from './Movies'
 
-export const Results = (props) => {
+export const Results = () => {
     const { search } = useContext(DataContext)
     // console.log(search)
     const url = `https://api.themoviedb.org/3/search/multi?api_key=a31ff14e759e872eb7151add966d60de&language=en-US&query=${search}&page=1&include_adult=false`
-    const img_url = "https://image.tmdb.org/t/p/original"
      // use state for movies list
     const [movies, setMovies] = useState([])
  

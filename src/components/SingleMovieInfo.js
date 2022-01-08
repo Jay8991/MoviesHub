@@ -7,7 +7,7 @@ import { MovieInfo } from './MovieInfo'
 import {Navbar} from './Navbar'
 import { TvInfo } from './TvInfo'
 
-export const SingleMovieInfo = (props) => {
+export const SingleMovieInfo = () => {
     const {user} = useUserAuth()
     const commentString = `Commenting as ${user.email}`
     // console.log(commentString)
@@ -41,10 +41,6 @@ export const SingleMovieInfo = (props) => {
         }catch{
             console.log("ERROR")
         }
-    }
-
-    const handleFavorites = () =>{
-        console.log("Clicked on Fav Link")
     }
 
     useEffect(() => {

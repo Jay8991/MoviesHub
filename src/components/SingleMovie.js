@@ -8,6 +8,14 @@ import { SingleMovieInfo } from './SingleMovieInfo'
 export const SingleMovie = (props) => {
     const img_url = "https://image.tmdb.org/t/p/original"
     const movie = props.m
+    const imgPath = movie.poster_path
+    let img_url_path = ""
+    if(imgPath === null){
+        img_url_path = ""
+    }else{
+        img_url_path = img_url + imgPath
+    }
+    // console.log(movie)
     const id = movie.id
     let type = ""
     if (props.type == null){
@@ -15,31 +23,14 @@ export const SingleMovie = (props) => {
     }else{
         type = props.type
     }
-    // const { getSingleMovie } = useContext(DataContext)
-    // getSingleMovie(movie)
-    // const [singlePage, setSinglePage] = useState(false)
+
     // console.log(img_url + movie.poster_path)
     const path = `/singlemovie/${type}/${id}`
     // console.log(movie)
 
-    const { addFavorite } = useContext(DataContext)
-    const {user} = useUserAuth()
-    // const navigate = useNavigate()
-
-    const handleSinglePage = () => {
-        // setSinglePage(true)
-        // navigate("/singlepage")
-        // console.log(user.email)
-        const formData = {
-            userId : user.email, 
-            movie
-        }
-        // addFavorite(formData)
-    }
-
     return (
             <Link to={path}>
-                <img className='result-img'  src={img_url + movie.poster_path} alt={movie.original_title}  />
+                <img className='result-img m-auto'  src={img_url_path} alt={movie.original_title}  />
             </Link>
     )
 }

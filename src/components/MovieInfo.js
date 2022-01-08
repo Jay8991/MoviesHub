@@ -1,11 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { DataContext } from '../context/Data'
+import { useUserAuth } from '../context/UserAuthContext'
 
 export const MovieInfo = (props) => {
 
-    const show = props.show
-    
-    const handleFavorites = () => {
+    const {user} = useUserAuth()
+    const { addFavorite } = useContext(DataContext)
 
+    const show = props.show
+    // console.log(show)
+    
+    async function handleFavorites(e){
+        e.preventDefault()
+        const formData = {
+            userId : user.email, 
+            show
+        }
+        try{
+            await addFavorite(formData, "movie")
+        }catch(err){
+            console.log(err)
+        }
     }
 
     return (

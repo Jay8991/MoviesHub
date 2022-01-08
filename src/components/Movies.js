@@ -27,7 +27,6 @@ export const Movies = (props) => {
             <h6 className='text-white'> {props.title}</h6> 
             <div className='movie-container d-flex'>
                 {movies.map(movie => (
-                    // <img className='movie-img' key={movie.id} src={img_url + movie.poster_path} alt={movie.original_title}  onClick={handleFavorite}/>
                     <SingleMovie key={movie.id} m={movie} type={props.type}/>
                 ))}
             </div>

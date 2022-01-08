@@ -16,7 +16,7 @@ code {
 
 .result-img {
   width : 300px;
-  margin : auto;
+  margin: auto;
   padding: 5px;
   transition: transform 0.1s;
 }

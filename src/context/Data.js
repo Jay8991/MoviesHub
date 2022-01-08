@@ -6,40 +6,27 @@ export const DataContext = createContext();
 
 export const DataProvider = (props) => {
     const { user } = useUserAuth()
-    const [favorites, setFavorites] = useState("")
+    const [favoritesMovies, setFavoritesMovies] = useState("")
+    const [favoritesTvShows, setFavoritesTvShows] = useState("")
     const [search, setSearch] = useState("")
-    const [singleMovie, setSingleMovie] = useState([])
     const [ comments, setComments ] = useState([]);
+    const [loadingTv, setLoadingTv] = useState(false)
+    const [loadingMovies, setLoadingMovies] = useState(false)
 
     const db = getFirestore();
 
-    // const addFavorite = useCallback(
-    //     async (favoritesData) => {
-    //         // if user is logged in
-    //         if(user.email){
-    //             const favoriteRef = doc(db, 'users', user.email, 'favorites', favoritesData.id)
-    //             const favoriteDoc = await getDoc(favoriteRef);
-
-    //             if(!favoriteDoc.exists()){
-    //                 // add to it 
-    //                 await setDoc(favoriteRef)
-    //             }
-    //             else{
-    //                 // already in favorites 
-    //                 console.log("Already in favorites")
-    //             }
-    //         }
-    //     },[db, user.email]
-    // )
-
-    const addFavorite = async ( favoritesData ) => {
-
-        if(user.email){
-            const favoriteRef = await addDoc(collection(db, 'users', user.email, 'favorites'), favoritesData)
+    const addFavorite = async ( favoritesData, type ) => {
+        if(type === "movie"){
+            const favoriteRef = await addDoc(collection(db, 'favorites', user.email, "movie"), favoritesData)
             const doc = await getDoc( favoriteRef );
-            setFavorites( [ { ...doc.data(), id: favoriteRef.id } ] );
+            setFavoritesMovies( [ { ...doc.data(), id: favoriteRef.id } ] ); 
+            setLoadingMovies(true)
+        }else{
+            const favoriteRef = await addDoc(collection(db, 'favorites', user.email, "tv"), favoritesData)
+            const doc = await getDoc( favoriteRef );
+            setFavoritesTvShows( [ { ...doc.data(), id: favoriteRef.id } ] ); 
+            setLoadingTv(true)
         }
-        
     }
 
     const getSearch = (search) => {
@@ -51,19 +38,53 @@ export const DataProvider = (props) => {
     //     setSingleMovie(movie)
     // }
 
+    const getFavoritesMovies = async() => {
 
-    // const getFavorites = useCallback(
-    //     async() => {
-    //         const querySnapshot = await getDocs(collection(db, 'users', user.email, 'favorites'));
-    //         console.log(querySnapshot)
-    //         return querySnapshot
-    //     }, [db]
-    // )
+        if(user === null){
+            return
+        }
+        const q = query(collection(db, "favorites", user.email, "movie"));
+        const querySnapshot = await getDocs(q);
+        let favorites = [] 
+        querySnapshot.forEach(doc => {
+            favorites.push({
+                id: doc.id,
+                ...doc.data()
+            })
+        });
+        setFavoritesMovies(favorites)
+        setLoadingMovies(false)
+        return querySnapshot;
+    }
     
-    // useEffect(() =>
-    // {
-    //     getFavorites();
-    // }, [ getFavorites ])
+    useEffect(() =>
+    {
+        getFavoritesMovies();
+    }, [loadingMovies, user])
+
+    const getFavoritesTvShows = async() => {
+
+        if(user === null){
+            return
+        }
+        const q = query(collection(db, "favorites", user.email, "tv"));
+        const querySnapshot = await getDocs(q);
+        let favorites = [] 
+        querySnapshot.forEach(doc => {
+            favorites.push({
+                id: doc.id,
+                ...doc.data()
+            })
+        });
+        setFavoritesTvShows(favorites)
+        setLoadingTv(false)
+        return querySnapshot;
+    }
+    
+    useEffect(() =>
+    {
+        getFavoritesTvShows();
+    }, [loadingTv, user])
 
 
     // const getComments = useCallback(
@@ -103,7 +124,15 @@ export const DataProvider = (props) => {
 
     
     const values = {
-        favorites, addFavorite, getSearch, search, addComments, comments
+        favoritesMovies,
+        favoritesTvShows, 
+        addFavorite, 
+        getSearch, 
+        search, 
+        addComments, 
+        comments,
+        getFavoritesMovies,
+        getFavoritesTvShows
     }
 
     return (
