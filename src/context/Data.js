@@ -110,79 +110,79 @@ export const DataProvider = (props) => {
         setMovieId(m)
     }
     
-    const getmovieComments = async() => {
-        if(user === null || movieId === undefined){
-            console.log("here")
-            return
-        }
-        try{
-            // console.log(movieId)
-            // const docRef = db.collection('comments').doc('movie').collection(movieId).get()
-            // console.log(docRef)
-            // const docSnap = await(docRef)
-            // if(docSnap.exists()){
-            //     console.log("EXISTS")
-            // }else{
-            //     console.log("DOESN'T EXIST")
-            // }
+    // const getmovieComments = async() => {
+    //     if(user === null || movieId === undefined){
+    //         console.log("here")
+    //         return
+    //     }
+    //     try{
+    //         // console.log(movieId)
+    //         // const docRef = db.collection('comments').doc('movie').collection(movieId).get()
+    //         // console.log(docRef)
+    //         // const docSnap = await(docRef)
+    //         // if(docSnap.exists()){
+    //         //     console.log("EXISTS")
+    //         // }else{
+    //         //     console.log("DOESN'T EXIST")
+    //         // }
 
-            // console.log(movieId)
-            // const commentRef = doc(db, 'comments', 'movie')
-            // const docSnap = await getDoc(commentRef)
-            // console.log(docSnap)
-            // if(docSnap.exists()){
-            //     console.log("EXISTS")
-            // }else{
-            //     console.log("NOPE")
-            // }
-            // db.collection('comments').get()
+    //         // console.log(movieId)
+    //         // const commentRef = doc(db, 'comments', 'movie')
+    //         // const docSnap = await getDoc(commentRef)
+    //         // console.log(docSnap)
+    //         // if(docSnap.exists()){
+    //         //     console.log("EXISTS")
+    //         // }else{
+    //         //     console.log("NOPE")
+    //         // }
+    //         // db.collection('comments').get()
 
-                // .get().then(
-                //     doc => {
-                //         if(doc.exists()){
-                //             console.log("EXISTS")
-                //         }else{
-                //             console.log("DO NOT EXIST")
-                //         }
-                //     }
-                // )
+    //             // .get().then(
+    //             //     doc => {
+    //             //         if(doc.exists()){
+    //             //             console.log("EXISTS")
+    //             //         }else{
+    //             //             console.log("DO NOT EXIST")
+    //             //         }
+    //             //     }
+    //             // )
 
-            //find the movie
-            // const commentDoc = await getDoc(commentRef)
+    //         //find the movie
+    //         // const commentDoc = await getDoc(commentRef)
             
 
-            //if movie id doesn't exist
-            // if(!commentDoc.exists()){
-            //     console.log("Do not exist in database, so comments for this movie")
-            // }
+    //         //if movie id doesn't exist
+    //         // if(!commentDoc.exists()){
+    //         //     console.log("Do not exist in database, so comments for this movie")
+    //         // }
 
 
 
 
 
 
-        }catch(err){
-            console.log(err)
-        }
+    //     }catch(err){
+    //         console.log(err)
+    //     }
 
-        // const q = query(collection(db, "comments", "movie", movieId));
-        // const querySnapshot = await getDocs(q);
-        // let mComments = [] 
-        // querySnapshot.forEach(doc => {
-        //     mComments.push({
-        //         id: doc.id,
-        //         ...doc.data()
-        //     })
-        // });
-        // setMovieComments(mComments)
-        setLoadingMovieComments(false)
-        // return querySnapshot;
-    }
+    //     // const q = query(collection(db, "comments", "movie", movieId));
+    //     // const querySnapshot = await getDocs(q);
+    //     // let mComments = [] 
+    //     // querySnapshot.forEach(doc => {
+    //     //     mComments.push({
+    //     //         id: doc.id,
+    //     //         ...doc.data()
+    //     //     })
+    //     // });
+    //     // setMovieComments(mComments)
+    //     setLoadingMovieComments(false)
+    //     // return querySnapshot;
+    // }
     
-    useEffect(() =>
-    {
-        getmovieComments();
-    }, [loadingMovieComments, movieId])
+    // useEffect(() =>
+    // {
+    //     getmovieComments();
+    // }, [loadingMovieComments, movieId])
 
     const values = {
         favoritesMovies,

@@ -23,7 +23,7 @@ export default {
     trending_tv :  `https://api.themoviedb.org/3/trending/tv/day?api_key=${api_key}`,
     popular_movies : `https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&language=en-US&page=1`,
     top_rated_movies : `https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}&language=en-US&page=1`,
-    upcoming_movies : 'https://api.themoviedb.org/3/movie/upcoming?api_key=${api_key}&language=en-US&page=1',
+    upcoming_movies : `https://api.themoviedb.org/3/movie/upcoming?api_key=${api_key}&language=en-US&page=1`,
     popular_tv : `https://api.themoviedb.org/3/tv/popular?api_key=${api_key}&language=en-US&page=1`,
     top_rated_tv : `https://api.themoviedb.org/3/tv/top_rated?api_key=${api_key}&language=en-US&page=1`
 }
