@@ -1,9 +1,11 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
-import { useMatch } from 'react-router-dom'
+import { Link, useMatch } from 'react-router-dom'
 import { DataContext } from '../context/Data'
 import { useUserAuth } from '../context/UserAuthContext'
+import { MovieInfo } from './MovieInfo'
 import {Navbar} from './Navbar'
+import { TvInfo } from './TvInfo'
 
 export const SingleMovieInfo = (props) => {
     const {user} = useUserAuth()
@@ -41,6 +43,10 @@ export const SingleMovieInfo = (props) => {
         }
     }
 
+    const handleFavorites = () =>{
+        console.log("Clicked on Fav Link")
+    }
+
     useEffect(() => {
         async function movie_data() {
             let response = await axios.get(url)
@@ -59,15 +65,7 @@ export const SingleMovieInfo = (props) => {
                     <div className='col-6'>
                         <img className='img-info float-left img-fluid'  src={img_url + show.poster_path} alt={show.original_title} />
                     </div>
-                    <div className='col-6 show-info'>
-                        <h3 className='text-white show-title'>{show.title}</h3>
-                        <p className='text-white'>Overview: {show.overview}</p>
-                        <p className='text-white'>Release Date: {show.release_date}</p>
-                        <p className='text-white'>Run Time: {show.runtime} min.</p>
-                        {/* <p className='text-white'>Staus: {show.status}</p> */}
-                        <p className='text-white'>Vote Avg.: {show.vote_average}</p>
-                        {/* <p className='text-white'>Genre.: {show.genres.map(g => (console.log(g.name)))}</p> */}
-                    </div>
+                    { type == 'movie' ? <MovieInfo show={show}/>: <TvInfo show={show} />}
                 </div>
                 <div className='row mt-5 comments-container'>
                     <div className='col'>
@@ -77,7 +75,7 @@ export const SingleMovieInfo = (props) => {
                             <input className='text-white input-comment p-2' type='text' placeholder={commentString} onChange={(e) => setComment(e.target.value)} />
                         </form>
                         <hr className='hr2-line'/>
-                        <div className='mt-3 text-white'>
+                        <div className='mt-3 text-white mb-5'>
                             All comments go here
                         </div>
                     </div>
