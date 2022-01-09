@@ -66,7 +66,7 @@ export const SingleMovieInfo = () => {
     useEffect(() => {
         async function movie_data() {
             let response = await axios.get(url)
-            // console.log(response.data)
+            console.log(response.data)
             setShow(response.data)
             return response
         }

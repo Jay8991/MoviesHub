@@ -1,4 +1,4 @@
-import { collection, getDocs, getFirestore, addDoc, getDoc, orderBy, query, doc, setDoc, updateDoc, deleteDoc } from "@firebase/firestore";
+import { collection, getDocs, getFirestore, addDoc, getDoc, orderBy, query, doc, setDoc, updateDoc, deleteDoc, collectionGroup } from "@firebase/firestore";
 import { createContext, useCallback, useEffect, useState } from "react";
 import { useUserAuth } from "./UserAuthContext";
 
@@ -87,13 +87,16 @@ export const DataProvider = (props) => {
     }, [loadingTv, user])
     
     // -------------------------------------------------------------------------------------
+    // COMMENTS
     
     const addComments = async ( postComments, type, id ) => {
         // setMovieId(id)
         if(type === "movie"){
-            const docRef = await doc( collection( db, 'movie', id ), postComments );
-            const doc = await setDoc( docRef );
-            setMovieComments( [ { ...doc.data(), id: docRef.id } ] );
+            // const docRef = await addDoc( collection( db, 'movie', id, 'comments' ), postComments );
+            // const doc = await getDoc( docRef );
+            // const docRef = doc(db, 'movie', id, 'comments', 'name' )
+            await setDoc( doc(db, 'movie', id, 'comments', 'name' ), postComments);
+            // setMovieComments( [ { ...document.data(), id: docRef.id } ] );
             setLoadingMovieComments(true)
         }else{
             const docRef = await addDoc( collection( db, 'comments', type, id ), postComments );
@@ -104,85 +107,57 @@ export const DataProvider = (props) => {
     }
 
 
-    const getMovieId = (m) => {
-        // const id = m.toString()
-        // console.log(id)
-        setMovieId(m)
+    const getMovieId = (id) => {
+        setMovieId(id)
     }
     
-    // const getmovieComments = async() => {
-    //     if(user === null || movieId === undefined){
-    //         console.log("here")
-    //         return
-    //     }
-    //     try{
-    //         // console.log(movieId)
-    //         // const docRef = db.collection('comments').doc('movie').collection(movieId).get()
-    //         // console.log(docRef)
-    //         // const docSnap = await(docRef)
-    //         // if(docSnap.exists()){
-    //         //     console.log("EXISTS")
-    //         // }else{
-    //         //     console.log("DOESN'T EXIST")
-    //         // }
+    const getmovieComments = async() => {
+        if(user === null || movieId === undefined){
+            console.log("here")
+            return
+        }
+        // try{
+        //     console.log(movieId)
 
-    //         // console.log(movieId)
-    //         // const commentRef = doc(db, 'comments', 'movie')
-    //         // const docSnap = await getDoc(commentRef)
-    //         // console.log(docSnap)
-    //         // if(docSnap.exists()){
-    //         //     console.log("EXISTS")
-    //         // }else{
-    //         //     console.log("NOPE")
-    //         // }
-    //         // db.collection('comments').get()
+        //     const docRef = doc(db, 'movie', movieId)
+        //     const docSnap = await getDoc(docRef)
+        //     if(docSnap.exists()){
+        //         console.log("EXIST")
+        //     }else{
+        //         console.log("DOESN'T EXIST")
+        //     }
 
-    //             // .get().then(
-    //             //     doc => {
-    //             //         if(doc.exists()){
-    //             //             console.log("EXISTS")
-    //             //         }else{
-    //             //             console.log("DO NOT EXIST")
-    //             //         }
-    //             //     }
-    //             // )
+        // }catch(err){
+        //     console.log(err)
+        // }
 
-    //         //find the movie
-    //         // const commentDoc = await getDoc(commentRef)
-            
+        const comments = await getDocs(doc(db, 'movie', movieId, 'comments', 'name'))
 
-    //         //if movie id doesn't exist
-    //         // if(!commentDoc.exists()){
-    //         //     console.log("Do not exist in database, so comments for this movie")
-    //         // }
+        if(comments.exists()){
+            console.log("EXIST")
+        }else{
+            console.log("DO NOT EXIST")
+        }
 
-
-
-
-
-
-    //     }catch(err){
-    //         console.log(err)
-    //     }
-
-    //     // const q = query(collection(db, "comments", "movie", movieId));
-    //     // const querySnapshot = await getDocs(q);
-    //     // let mComments = [] 
-    //     // querySnapshot.forEach(doc => {
-    //     //     mComments.push({
-    //     //         id: doc.id,
-    //     //         ...doc.data()
-    //     //     })
-    //     // });
-    //     // setMovieComments(mComments)
-    //     setLoadingMovieComments(false)
-    //     // return querySnapshot;
-    // }
+        // const q = query(collection(db, "movie", movieId, 'comments'));
+        // const querySnapshot = await getDocs(q);
+        // let mComments = [] 
+        // querySnapshot.forEach(doc => {
+        //     mComments.push({
+        //         id: doc.id,
+        //         ...doc.data()
+        //     })
+        // });
+        // setMovieComments(mComments)
+        // console.log(movieComments)
+        setLoadingMovieComments(false)
+        // return querySnapshot;
+    }
     
-    // useEffect(() =>
-    // {
-    //     getmovieComments();
-    // }, [loadingMovieComments, movieId])
+    useEffect(() =>
+    {
+        getmovieComments();
+    }, [movieId, loadingMovieComments])
 
     const values = {
         favoritesMovies,
