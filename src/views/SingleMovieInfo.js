@@ -24,8 +24,8 @@ export const SingleMovieInfo = () => {
     // console.log(match.params.id)
     // console.log(match.params.type)
 
-
-    const url = `https://api.themoviedb.org/3/${type}/${id}?api_key=a31ff14e759e872eb7151add966d60de`
+    const api_key = process.env.REACT_APP_MOVIEAPIKEY
+    const url = `https://api.themoviedb.org/3/${type}/${id}?api_key=${api_key}`
     const img_url = "https://image.tmdb.org/t/p/original"
 
     // so it doesn't give error if poster path is undefined 
