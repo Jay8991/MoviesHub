@@ -92,11 +92,9 @@ export const DataProvider = (props) => {
     const addComments = async ( postComments, type, id ) => {
         // setMovieId(id)
         if(type === "movie"){
-            // const docRef = await addDoc( collection( db, 'movie', id, 'comments' ), postComments );
-            // const doc = await getDoc( docRef );
-            // const docRef = doc(db, 'movie', id, 'comments', 'name' )
-            await setDoc( doc(db, 'movie', id, 'comments', 'name' ), postComments);
-            // setMovieComments( [ { ...document.data(), id: docRef.id } ] );
+            const docRef = await addDoc( collection( db, 'movie', id, 'comments' ), postComments );
+            const doc = await getDoc( docRef );
+            setMovieComments( [ { ...doc.data(), id: docRef.id } ] );
             setLoadingMovieComments(true)
         }else{
             const docRef = await addDoc( collection( db, 'comments', type, id ), postComments );
@@ -108,56 +106,38 @@ export const DataProvider = (props) => {
 
 
     const getMovieId = (id) => {
-        setMovieId(id)
+        const mid = id.toString()
+        setMovieId(mid)
     }
-    
+
     const getmovieComments = async() => {
         if(user === null || movieId === undefined){
             console.log("here")
             return
         }
-        // try{
-        //     console.log(movieId)
 
-        //     const docRef = doc(db, 'movie', movieId)
-        //     const docSnap = await getDoc(docRef)
-        //     if(docSnap.exists()){
-        //         console.log("EXIST")
-        //     }else{
-        //         console.log("DOESN'T EXIST")
-        //     }
-
-        // }catch(err){
-        //     console.log(err)
-        // }
-
-        const comments = await getDocs(doc(db, 'movie', movieId, 'comments', 'name'))
-
-        if(comments.exists()){
-            console.log("EXIST")
-        }else{
-            console.log("DO NOT EXIST")
-        }
-
-        // const q = query(collection(db, "movie", movieId, 'comments'));
-        // const querySnapshot = await getDocs(q);
-        // let mComments = [] 
-        // querySnapshot.forEach(doc => {
-        //     mComments.push({
-        //         id: doc.id,
-        //         ...doc.data()
-        //     })
-        // });
-        // setMovieComments(mComments)
-        // console.log(movieComments)
+        const q = query( collection(db, 'movie', movieId, 'comments'));
+        // const docRef = doc(db, 'movie', movieId)
+        const docSnapshot = await getDocs(q);
+        // console.log(docSnapshot.data())
+        let comments = [] 
+        docSnapshot.forEach(doc => {
+            comments.push({
+                id: doc.id,
+                ...doc.data()
+            })
+        });
+        // console.log(comments)
+        setMovieComments(comments)
         setLoadingMovieComments(false)
-        // return querySnapshot;
+        return docSnapshot
+
     }
     
     useEffect(() =>
     {
         getmovieComments();
-    }, [movieId, loadingMovieComments])
+    }, [user, movieId, loadingMovieComments])
 
     const values = {
         favoritesMovies,

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useCallback } from 'react'
 import { useMatch } from 'react-router-dom'
 import { DataContext } from '../context/Data'
 import { useUserAuth } from '../context/UserAuthContext'
@@ -8,21 +8,21 @@ import {Navbar} from '../components/Navbar'
 import { TvInfo } from '../components/TvInfo'
 import { MovieComments } from '../components/MovieComments'
 import {TvComments} from '../components/TvComments'
-import { serverTimestamp } from '@firebase/firestore';
+import { serverTimestamp, getFirestore, doc, getDoc } from '@firebase/firestore';
 
 export const SingleMovieInfo = () => {
     const {user} = useUserAuth()
-
-    // placeholder for comments
-    const commentString = `Commenting as ${user.email}`
-
     // dynamic routing for specific movie or tv show
     const match = useMatch("/singlemovie/:type/:id")
     const [show, setShow] = useState([])
     const id = match.params.id
     const type = match.params.type
-    // console.log(match.params.id)
-    // console.log(match.params.type)
+
+
+    // placeholder for comments
+    const commentString = `Commenting as ${user.email}`
+
+
 
     const api_key = process.env.REACT_APP_MOVIEAPIKEY
     const url = `https://api.themoviedb.org/3/${type}/${id}?api_key=${api_key}`
@@ -35,12 +35,7 @@ export const SingleMovieInfo = () => {
     }else{
         imgPath = ""
     }
-    // let img_url_path = ""
-    // if(imgPath === null){
-    //     img_url_path = ""
-    // }else{
-    //     img_url_path = img_url + imgPath
-    // }
+
 
     // get user comment and add it to addcomments
     const [comment, setComment] = useState("")
@@ -66,12 +61,13 @@ export const SingleMovieInfo = () => {
     useEffect(() => {
         async function movie_data() {
             let response = await axios.get(url)
-            console.log(response.data)
+            // console.log(response.data)
             setShow(response.data)
             return response
         }
         movie_data()
     }, [url]);
+
 
     return (
         <div >
@@ -92,7 +88,9 @@ export const SingleMovieInfo = () => {
                         </form>
                         <hr className='hr2-line'/>
                         <div className='mt-3 text-white mb-5'>
-                            { type === 'movie' ? <MovieComments id={id}/>: <TvComments />}
+                            { type === 'movie' ? 
+                            <MovieComments /> :
+                            <TvComments />}
                         </div>
                     </div>
                 </div>
