@@ -1,11 +1,13 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { DataContext } from '../context/Data'
 import { useUserAuth } from '../context/UserAuthContext'
 
 export const MovieInfo = (props) => {
-
+    
     const {user} = useUserAuth()
-    const { addFavorite } = useContext(DataContext)
+    const { addFavorite, inFav } = useContext(DataContext)
+
+
 
     const show = props.show
     // console.log(show)
@@ -32,7 +34,7 @@ export const MovieInfo = (props) => {
             {/* <p className='text-white'>Staus: {show.status}</p> */}
             <p className='text-white'>Vote Avg.: {show.vote_average}</p>
             {/* <p className='text-white'>Genre.: {show.genres.map(g => (console.log(g.name)))}</p> */}
-            <button onClick={handleFavorites} className='btn btn-light favorites-btn'>Add To Favorites</button>
+            { inFav ? <p>IN FAV</p> : <button onClick={handleFavorites} className='btn btn-light favorites-btn'>Add To Favorites</button>}
          </div>
     )
 }

@@ -7,7 +7,7 @@ export const MovieComments = (props) => {
 
     const { movieComments } = useContext(DataContext)
     const comments = [...movieComments]
-    console.log(comments)
+    // console.log(comments)
 
     return (
         <div>

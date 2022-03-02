@@ -97,7 +97,7 @@ export const DataProvider = (props) => {
             setMovieComments( [ { ...doc.data(), id: docRef.id } ] );
             setLoadingMovieComments(true)
         }else{
-            const docRef = await addDoc( collection( db, 'comments', type, id ), postComments );
+            const docRef = await addDoc( collection( db, 'tv', id, 'comments' ), postComments );
             const doc = await getDoc( docRef );
             setTvComments( [ { ...doc.data(), id: docRef.id } ] );
             setLoadingTvComments(true)
@@ -139,6 +139,55 @@ export const DataProvider = (props) => {
         getmovieComments();
     }, [user, movieId, loadingMovieComments])
 
+
+    const gettvComments = async() => {
+        if(user === null || movieId === undefined){
+            console.log("here")
+            return
+        }
+        // console.log(movieId)
+        const q = query( collection(db, 'tv', movieId, 'comments'));
+        // const docRef = doc(db, 'movie', movieId)
+        const docSnapshot = await getDocs(q);
+        // console.log(docSnapshot.data())
+        let comments = [] 
+        docSnapshot.forEach(doc => {
+            comments.push({
+                id: doc.id,
+                ...doc.data()
+            })
+        });
+        // console.log(comments)
+        setTvComments(comments)
+        setLoadingTvComments(false)
+        return docSnapshot
+
+    }
+    
+    useEffect(() =>
+    {
+        gettvComments();
+    }, [user, movieId, loadingTvComments])
+
+
+    // -----------------------------------------------------------------------------------
+    // already in favs
+    const [inFav, setInFav] = useState(false)
+    const inFavorites = async() =>{
+        // movie
+        for(let i = 0; i < favoritesMovies.length; i++){
+            if(favoritesMovies[i].show.id == movieId){
+                setInFav(true)
+            }else{
+                setInFav(false)
+            }
+        }
+    }
+    useEffect(() =>
+    {
+        inFavorites();
+    }, [])
+
     const values = {
         favoritesMovies,
         favoritesTvShows, 
@@ -147,7 +196,9 @@ export const DataProvider = (props) => {
         search, 
         addComments, 
         movieComments,
-        getMovieId
+        getMovieId,
+        tvComments,
+        inFav
     }
 
     return (
