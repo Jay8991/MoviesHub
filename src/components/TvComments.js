@@ -11,7 +11,7 @@ export const TvComments = () => {
         <div>
             <ul className='list-group'>
                 { comments.map(c => 
-                    <Comments key={c.id} comment={c}/>
+                    <Comments  key={c.id} comment={c}/>
                 ) }
             </ul>
         </div>
